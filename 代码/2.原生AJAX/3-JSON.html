@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="result"></div>
+</body>
+<script>
+    const result = document.getElementById('result')
+    //绑定键盘事件
+    window.onkeydown = function () {
+        //发请求
+        const xhr = new XMLHttpRequest()
+        //设置响应体数据类型
+        xhr.responseType = 'json'
+        xhr.open('GET', 'http://127.0.0.1:8000/json-server')
+        xhr.send()
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // console.log(xhr.response);
+                    // result.innerHTML = xhr.response
+                    //手动数据转换
+                    // let data = JSON.parse(xhr.response)
+                    // console.log(data);
+                    //自动转换
+                    console.log(xhr.response);
+                    result.innerHTML = xhr.response.name
+                }
+            }
+        }
+    }
+</script>
+
+</html>

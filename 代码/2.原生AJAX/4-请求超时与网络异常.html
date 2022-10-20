@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请求超时与网络异常</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <button>点击按钮发送请求</button>
+    <div id="result"></div>
+</body>
+<script>
+    const btn = document.getElementsByTagName('button')[0]
+    const result = document.getElementById('result')
+    btn.onclick = function () {
+        //创建对象
+        const xhr = new XMLHttpRequest()
+        //超时设置
+        xhr.timeout = 2000
+        //超时回调
+        xhr.ontimeout = function () {
+            alert("网络异常，请稍后重试！！！")
+        }
+        //网络异常
+        xhr.onerror = function () {
+            alert("你的网络似乎出了一些问题！！")
+        }
+        //初始化
+        xhr.open('GET', 'http://127.0.0.1:8000/timeout')
+        //发送
+        xhr.send()
+        //事件绑定，处理服务端返回的结果
+        //当readystate属性状态发生变化 0 1 2 3 4
+        xhr.onreadystatechange = function () {
+            //判断(服务端返回了所有结果)
+            if (xhr.readyState == 4) {
+                //判断响应状态码
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    //处理结果
+                    //响应行
+                    result.innerHTML = xhr.response
+                } else { }
+            }
+        }
+    }
+</script>
+
+</html>
