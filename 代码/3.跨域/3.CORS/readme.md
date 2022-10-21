@@ -19,7 +19,9 @@ res.send("testAJAX 返回的响应");
 });
 ```
 ## 说明
-在学习ajax开始就使用了cors方法解决跨域问题，也就是服务器设置响应头
+在学习ajax开始就使用了cors方法解决跨域问题，也就是服务器设置响应头。
+1、普通跨域请求：只需服务器端设置Access-Control-Allow-Origin
+2、带cookie跨域请求：前后端都需要进行设置
 ```javascript
  response.setHeader('Access-Control-Allow-Origin', '*')
 ```
