@@ -43,16 +43,28 @@ app.get('/timeout', (request, response) => {
         response.send('TimeOut')
     }, 3000)
 })
-//axios
-app.all('/axios-server', (request, response) => {
-    //设置响应头  设置允许跨域
-    response.setHeader('Access-Control-Allow-Header', '*')
-    response.setHeader('Access-Control-Allow-Origin', '*')
-    //设置响应体
+//JSONP
+app.all('/jsonp-server', (request, response) => {
+    // 返回的必须是一段js代码
+    // response.send("console.log('hello jsonp-server')")
     const data = {
         name: 'guigu'
     }
-    response.send(JSON.stringify(data))
+    let str = JSON.stringify(data)
+
+    response.end(`handle(${str})`)
+})
+//JSONP实践
+app.all('/check-uername', (request, response) => {
+    // 返回的必须是一段js代码
+    // response.send("console.log('hello jsonp-server')")
+    const data = {
+        exist: 1,
+        msg: '用户名已经存在'
+    }
+    let str = JSON.stringify(data)
+
+    response.end(`handle(${str})`)
 })
 //监听端口启动服务
 app.listen(8000, () => {

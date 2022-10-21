@@ -7,9 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>同源策略</title>
 </head>
+<!-- 
+    同源： 协议、域名、端口号 必须完全相同。
+    违背同源策略就是跨域。
+-->
 
 <body>
     <h1>尚硅谷</h1>
+    <button>点击获取用户数据</button>
 </body>
+<script>
+    const btn = document.getElementsByTagName('button')[0]
+    btn.onclick = function () {
+        const xhr = new XMLHttpRequest()
+        //满足同源策略，url简写
+        xhr.open('GET', '/data')
+        xhr.send()
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    console.log(xhr.response);
+                }
+            }
+        }
+    }
+</script>
 
 </html>
